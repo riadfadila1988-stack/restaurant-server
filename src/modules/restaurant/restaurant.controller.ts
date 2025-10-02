@@ -7,7 +7,7 @@ class RestaurantController extends BaseController {
     try {
       const { name } = req.body || {};
       if (!name) return this.handleError(res, 'Name is required', 400);
-      const r = await restaurantService.register(name);
+      const r = await restaurantService.register(req.body);
       return this.handleSuccess(res, { _id: r._id, name: r.name, apiKey: r.apiKey });
     } catch (e) {
       return this.handleError(res, 'Failed to register restaurant');

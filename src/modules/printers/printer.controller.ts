@@ -43,17 +43,16 @@ class PrinterController extends BaseController{
             this.handleError(res, 'Failed to delete Printer');
         }
     }
-
-    async print(req: Request, res: Response): Promise<void> {
+    async getReceiptPrinter(req: Request, res: Response): Promise<void> {
         try {
-            const { printerId, content, orderId } = req.body;
             const restaurantId = (req as any).restaurantId as string;
-            await PrinterService.printToDevice(printerId, content, orderId, restaurantId);
-            this.handleSuccess(res, { message: 'Print job sent successfully' });
+            const resuilt = await PrinterService.getReceiptPrinter(restaurantId);
+            this.handleSuccess(res, resuilt);
         }catch(err) {
-            this.handleError(res, 'Failed to send print job');
+            this.handleError(res, 'Failed to get Printers');
         }
     }
+
 }
 
 export default new PrinterController();

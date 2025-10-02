@@ -37,7 +37,7 @@ class FoodService {
                 throw new Error("Invalid category ID format.");
             }
 
-            return await FoodSchema.find({ categoryId, restaurantId }).populate('categoryId', 'name');
+            return await FoodSchema.find({ categoryId, restaurantId }).populate('categoryId', 'name').populate('printers', ['ipAddress', 'port']);
         } catch (error) {
             console.error("Error getting foods by category ID:", error);
             throw error;
